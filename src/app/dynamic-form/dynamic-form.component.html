@@ -1,74 +1,52 @@
-
 <div *ngIf="form">
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <div *ngFor="let control of model">
+    <div *ngFor="let control of formModels">
       <div [ngSwitch]="control.type">
 
-<!-- 输入框 -->
-<!-- [ngStyle]="control.style" -->
-        <div *ngSwitchCase="'text'" [ngStyle]="control.style" [fxLayout]="control.style.fxLayout"
-              [fxLayoutGap]="control.style.fxLayoutGap" [fxLayoutAlign]="control.style.fxLayoutAlign">
-            <label class="left-text">{{ control.label }}</label>
-            <input [formControlName]="control.id"
-                    [value]="control.value"
-                    [placeholder]="control.placeholder"
-                    type="text"
-                    on-change="control.handler($event, form.value)"
-                    class="right-text">
+        <!-- 输入框 -->
+        <!-- [ngStyle]="control.style" -->
+        <div *ngSwitchCase="'input'" [ngStyle]="control.style">
+          <label class="left-text">{{ control.name }}</label>
+          <input [formControlName]="control.id" [value]="control.value" [placeholder]="control.placeholder" type="text"
+            on-change="onRadioChange($event, control, form)" class="right-text">
         </div>
-<!-- 多选框 -->
+        <!-- 多选框 -->
         <div *ngSwitchCase="'checkbox'" [formGroupName]="control.id">
-            <label class="left-text">{{ control.label }}</label>
+          <label class="left-text">{{ control.name }}</label>
           <div class="right-text" *ngFor="let option of control.options">
-              <input [formControlName]="option.id"
-                     [name]="option.id"
-                     [id] = "option.id"
-                     [checked] = "option.checked"
-                     type="checkbox"
-                     on-change="control.handler($event, form.value)">
-              <label for="option.id">{{ option.value }}</label>
+            <input [formControlName]="option.id" [name]="option.id" [id]="option.id" [checked]="option.value" type="checkbox"
+              on-change="onRadioChange($event, control, form)">
+            <label for="option.id">{{ option.name }}</label>
           </div>
         </div>
-<!-- 单选框 -->
-<!-- on-change="onRadioChange($event, control, form.value)" -->
+        <!-- 单选框 -->
         <div *ngSwitchCase="'radio'">
-            <label class="left-text">{{ control.label }}</label>
-            <div class="right-text" *ngFor="let option of control.options">
-                <input  [formControlName]="control.id"
-                        [name]="control.id"
-                        type="radio"
-                        [value]="option.label"
-                        [id] = "option.label"
-                        on-change="control.handler($event, form.value)">
-                 <label for="option.label">{{ option.label }}</label>
-            </div>
+          <label class="left-text">{{ control.name }}</label>
+          <div class="right-text" *ngFor="let option of control.options">
+            <input [formControlName]="control.id" [name]="control.id" type="radio" [value]="option.value" [id]="option.id"
+              on-change="onRadioChange($event, control, form)">
+            <label for="option.label">{{ option.name }}</label>
+          </div>
 
         </div>
-<!-- 下拉单选框 -->
+        <!-- 下拉单选框 -->
         <div *ngSwitchCase="'dropDown'">
-            <label class="left-text">{{ control.label }}</label>
-            <select class="right-text" [formControlName]="control.id" [value]="control.selectedOption" on-change="control.handler($event, form.value)">
-                <option *ngFor="let option of control.options" [value]="option.label">{{option.label}}</option>
-              </select>
+          <label class="left-text">{{ control.name }}</label>
+          <select class="right-text" [formControlName]="control.id" [value]="control.value" on-change="onRadioChange($event, control, form)">
+            <option *ngFor="let option of control.options" [value]="option.value">{{option.name}}</option>
+          </select>
         </div>
 
-<!-- 颜色选择盘 -->
+        <!-- 颜色选择盘 -->
         <div *ngSwitchCase="'colorPicker'" [formGroupName]="control.id">
-            <label class="left-text">{{ control.label }}</label>
-            <div class="right-text" *ngFor="let option of control.options">
-                <input [formControlName]="option.id"
-                    [name]="option.id"
-                    [id] = "option.id"
-                    [value] = "option.value"
-                    type="color"
-                    on-change="control.handler($event, form.value)">
-                <label for="option.id">{{ option.label }}</label>
-            </div>
+          <label class="left-text">{{ control.name }}</label>
+          <div class="right-text" *ngFor="let option of control.options">
+            <input [formControlName]="option.id" [name]="option.id" [id]="option.id" [value]="option.value" type="color"
+              on-change="onRadioChange($event, control, form)">
+            <label for="option.id">{{ option.name }}</label>
+          </div>
         </div>
       </div>
     </div>
   </form>
 </div>
-
-
-
