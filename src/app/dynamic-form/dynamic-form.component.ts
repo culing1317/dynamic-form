@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { stringify } from '@angular/core/src/util';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { type } from 'os';
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',

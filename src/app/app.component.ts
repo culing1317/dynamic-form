@@ -225,9 +225,6 @@ export class AppComponent implements OnInit {
     // this.formModel = [inputModel, dropDownModel, multiModel, colorPickerModel, singleModel];
   }
 
-  log2(formValue): Observable<any> {
-
-  }
   log(message, b) {
     console.log(message, b);
   }
