@@ -110,8 +110,9 @@ export class DynamicFormComponent implements OnInit {
           break;
       }
     }
+    const group = new FormGroup(map);
     return {
-      form: new FormGroup(map),
+      form: group,
       models: models
     };
   }

@@ -1,7 +1,6 @@
 <div *ngIf="form">
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit:{models: formModels, form: form}}">
-
     </ng-container>
   </form>
 </div>
@@ -63,16 +62,5 @@
               </div>
             </div>
           </div>
-    <!-- </div> -->
-
-<!-- </form> -->
 </ng-template>
 
-<!-- <ng-container *ngTemplateOutlet="formTemplate2; context: mycontext">
-
-</ng-container>
-
-<ng-template #formTemplate2 let-parameter>
-<div style="width:100px;height:100px;background-color:blueviolet">{{parameter[0]}}!</div>
-<div style="width:100px;height:100px;background-color:blueviolet">{{parameter[1]}}!</div>
-</ng-template> -->
