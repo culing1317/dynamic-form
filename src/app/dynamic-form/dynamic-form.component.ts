@@ -19,10 +19,21 @@ export class DynamicFormComponent implements OnInit {
   set model(value) {
     this._model = value;
     this.formModels = [];
-    this.createFormModel(this._model);
+    const result =  this.createFormModel(this._model);
+    this.formModels = result.models;
+    this.form = result.form;
     console.log(this.form.value);
   }
   _model: Array<any>;
+  mycontext = {
+    $implicit: [
+      'erin',
+      'eric',
+    ]
+      // name: 'erin',
+      // bad: 'eric',
+
+  };
   constructor() { }
 
   ngOnInit() {
@@ -54,6 +65,7 @@ export class DynamicFormComponent implements OnInit {
   }
   private createFormModel(formDataSet: ConfigFormData[]) {
     const map = {};
+    const models = [];
     for (let index = 0; index < formDataSet.length; index++) {
       const formData = formDataSet[index];
       switch (formData.type) {
@@ -61,7 +73,7 @@ export class DynamicFormComponent implements OnInit {
           {
             map[formData.id] = new FormControl(formData.value);
             const model = new InputLabelModel(formData);
-            this.formModels.push(model);
+            models.push(model);
           }
           break;
         case ControlType.radio:
@@ -69,7 +81,7 @@ export class DynamicFormComponent implements OnInit {
           {
             map[formData.id] = new FormControl(formData.value);
             const model = new SingleSelectModel(formData);
-            this.formModels.push(model);
+            models.push(model);
           }
           break;
         case ControlType.checkbox:
@@ -82,14 +94,26 @@ export class DynamicFormComponent implements OnInit {
             }
             map[formData.id] = new FormGroup(subMap);
             const model = new MultiSelectModel(formData);
-            this.formModels.push(model);
+            models.push(model);
+          }
+          break;
+        case ControlType.group:
+          {
+            const subRes = this.createFormModel(formData.child);
+            const model = new GroupModel(formData);
+            model.child = subRes.models;
+            map[formData.id] = subRes.form;
+            models.push(model);
           }
           break;
         default:
           break;
       }
     }
-    this.form = new FormGroup(map);
+    return {
+      form: new FormGroup(map),
+      models: models
+    };
   }
 }
 
@@ -156,6 +180,14 @@ class InputLabelModel extends BasicModel {
   }
   placeholder: string;
 }
+
+class GroupModel extends BasicModel {
+  constructor(config: ConfigFormData) {
+    super(config);
+    this.child = config.child;
+  }
+  child: any[];
+}
 interface LabelModel {
   id: string;
   type: string;
@@ -199,3 +231,7 @@ export enum ControlType {
   table = 'table'
 }
 
+interface Result {
+  form: FormGroup;
+  models: any[];
+}
