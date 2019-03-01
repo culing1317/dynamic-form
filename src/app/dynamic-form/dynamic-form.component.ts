@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 export class DynamicFormComponent implements OnInit {
   form: FormGroup;
   formModels = [];
+  dropDownFlagBoolen: any = {};
   @Input('model')
   get model() {
     return this._model;
@@ -29,6 +30,14 @@ export class DynamicFormComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.form.value);
+  }
+
+  onDropDown(flagId) {
+    if(this.dropDownFlagBoolen[flagId]) {
+      this.dropDownFlagBoolen[flagId] = !this.dropDownFlagBoolen[flagId];
+    } else {
+      this.dropDownFlagBoolen[flagId] = !!flagId;
+    }
   }
 
   onRadioChange(event, controlModel, form) {

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   DynamicFormComponent,
   ConfigFormData,
@@ -14,7 +15,7 @@ import { Observable, of } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'app';
   formDataModel: Array<ConfigFormData>;
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.formDataModel = [
@@ -66,7 +67,10 @@ export class AppComponent implements OnInit {
                {id: 'A2Current', name: 'A2Current', value: false},
                {id: 'A3Current', name: 'A3Current', value: true},
                {id: 'A4Current', name: 'A4Current', value: false},
-               {id: 'A5Current', name: 'A5Current', value: true}],
+               {id: 'A5Current', name: 'A5Current', value: true},
+               {id: 'A6Current', name: 'A6Current', value: true},
+               {id: 'A7Current', name: 'A7Current', value: true},
+               {id: 'A8Current', name: 'A8Current', value: true}],
         handler$: (res: any) => {
           return Observable.create(observer => {
             const temp = res;
@@ -229,4 +233,15 @@ export class AppComponent implements OnInit {
     console.log(message, b);
   }
 
+  @HostBinding('style')
+  get style() {
+    return this.sanitizer.bypassSecurityTrustStyle(
+      `
+        --leftParmargin: 10px 50px 0 150px;
+        --leftParMaxWid: 20%;
+        --rightParMaxWid: 75%;
+        --itmeMargin: 20px 50px 0 15px;
+      `
+    );
+  }
 }
