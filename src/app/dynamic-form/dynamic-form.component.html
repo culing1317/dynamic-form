@@ -1,80 +1,88 @@
 <div *ngIf="form">
-  <form (ngSubmit)="onSubmit()" [formGroup]="form" class="dynmic-form">
-    <div *ngFor="let control of formModels">
-      <div [ngSwitch]="control.type">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit:{models: formModels, form: form}}">
+    </ng-container>
+  </form>
+</div>
 
-        <!-- 输入框 -->
-        <!-- [ngStyle]="control.style" -->
-        <div class="form-item" *ngSwitchCase="'input'" fxLayout='row' fxLayoutAlign="space-between">
-          <label class="left-text">{{ control.name }}</label>
-          <input class="right-text text-input" [formControlName]="control.id" [value]="control.value" [placeholder]="control.placeholder" type="text"
-            on-change="onRadioChange($event, control, form)" >
-        </div>
-        <!-- 多选框 -->
-        <div class="form-item" *ngSwitchCase="'checkbox'" fxLayout='row' fxLayoutAlign="space-between" [formGroupName]="control.id">
-          <label class="left-text">{{ control.name }}</label>
-          <div class="right-text checkbox-right" fxLayout="row ">
-            <div class="checkbox-item" *ngFor="let option of control.options" fxLayout="row wrap" fxLayoutAlign="start center">
-              <input class="cursor-hander" [formControlName]="option.id" [name]="option.id" [id]="option.id" [checked]="option.value" type="checkbox"
-                on-change="onRadioChange($event, control, form)">
-              <label for="option.id">{{ option.name }}</label>
-            </div>
+
+<ng-template #formTemplate let-group>
+  <div *ngFor="let model of group.models" [formGroup]="group.form">
+    <div [ngSwitch]="model.type">
+      <!-- 输入框 -->
+      <!-- [ngStyle]="model.style" -->
+      <div class="form-item" *ngSwitchCase="'input'" fxLayout='row' fxLayoutAlign="space-between">
+        <label class="left-text">{{ model.name }}</label>
+        <input class="right-text text-input" [formControlName]="model.id" [value]="model.value" [placeholder]="model.placeholder"
+          type="text" on-change="onRadioChange($event, model, group.form)">
+      </div>
+      <!-- 多选框 -->
+      <div *ngSwitchCase="'checkbox'" class="form-item" [formGroupName]="model.id" fxLayout='row' fxLayoutAlign="space-between">
+        <label class="left-text">{{ model.name }}</label>
+        <div class="right-text checkbox-right" fxLayout="row ">
+          <div class="checkbox-item" *ngFor="let option of model.options" fxLayout="row wrap" fxLayoutAlign="start center">
+            <input class="cursor-hander" [formControlName]="option.id" [name]="option.id" [id]="option.id" [checked]="option.value"
+              type="checkbox" on-change="onRadioChange($event, model, form)">
+            <label for="option.id">{{ option.name }}</label>
           </div>
         </div>
-        <!-- 单选框 -->
-        <div class="form-item" *ngSwitchCase="'radio'"fxLayout='row' fxLayoutAlign="space-between" >
-          <label class="left-text">{{ control.name }}</label>
-          <div class="right-text single-right" fxLayout="row">
-            <div class="single-item" *ngFor="let option of control.options" fxLayout="row wrap" fxLayoutAlign="start center">
-              <input class="cursor-hander" [formControlName]="control.id" [name]="control.id" type="radio" [value]="option.value" [id]="option.id"
-                on-change="onRadioChange($event, control, form)">
-              <label for="option.label">{{ option.name }}</label>
-            </div>
+      </div>
+      <!-- 单选框 -->
+      <div class="form-item" *ngSwitchCase="'radio'" fxLayout='row' fxLayoutAlign="space-between">
+        <label class="left-text">{{ model.name }}</label>
+        <div class="right-text single-right" fxLayout="row">
+          <div class="single-item" *ngFor="let option of model.options" fxLayout="row wrap" fxLayoutAlign="start center">
+            <input class="cursor-hander" [formControlName]="model.id" [name]="model.id" type="radio" [value]="option.value"
+              [id]="option.id" on-change="onRadioChange($event, model, form)">
+            <label for="option.label">{{ option.name }}</label>
           </div>
         </div>
-        <!-- 下拉单选框 -->
-        <!-- <div class="form-item" *ngSwitchCase="'dropDown'"fxLayout='row' fxLayoutAlign="space-between" >
-          <label class="left-text">{{ control.name }}</label>
-          <select class="right-text" [formControlName]="control.id" [value]="control.value" on-change="onRadioChange($event, control, form)">
-            <option *ngFor="let option of control.options" [value]="option.value">{{option.name}}</option>
-          </select>
-        </div> -->
-
-        <!-- 下拉单选框(新) -->
-        <div class="form-item drop-down" *ngSwitchCase="'dropDown'"fxLayout='row' fxLayoutAlign="space-between" >
-          <label class="left-text">{{ control.name }}</label>
-          <div class="right-text" on-click="onDropDown(control.id)">
+      </div>
+      <!-- 下拉单选框 -->
+      <!-- <div *ngSwitchCase="'dropDown'">
+        <label class="left-text">{{ model.name }}</label>
+        <select class="right-text" [formControlName]="model.id" [value]="model.value" on-change="onRadioChange($event, model, form)">
+          <option *ngFor="let option of model.options" [value]="option.value">{{option.name}}</option>
+        </select>
+      </div> -->
+      <!-- 下拉单选框(新) -->
+      <div class="form-item drop-down" *ngSwitchCase="'dropDown'"fxLayout='row' fxLayoutAlign="space-between" >
+          <label class="left-text">{{ model.name }}</label>
+          <div class="right-text" on-click="onDropDown(model.id)">
             <div class="form-select">
-              <div class="form-select-selection" [ngClass]="{'toggle-btn-on': (dropDownFlagBoolen[control.id])}">
+              <div class="form-select-selection" [ngClass]="{'toggle-btn-on': (dropDownFlagBoolen[model.id])}">
                 <input type="text" type="hidden" value>
                 <div>
                   <span class="form-select-palaceholder">请选择</span>
                 </div>
               </div>
-              <div class="select-dropdown" [ngClass]="{'show-drop-down': !(dropDownFlagBoolen[control.id])}">
+              <div class="select-dropdown" [ngClass]="{'show-drop-down': !(dropDownFlagBoolen[model.id])}">
                 <ul class="select-dropdown-list">
-                  <li class="select-item" [ngClass]="{}" *ngFor="let option of control.options">{{option.name}}</li>
+                  <li class="select-item" [ngClass]="{}" *ngFor="let option of model.options">{{option.name}}</li>
                 </ul>
               </div>
             </div>
           </div>
-          <!-- <select class="right-text" [formControlName]="control.id" [value]="control.value" on-change="onRadioChange($event, control, form)">
-            <option *ngFor="let option of control.options" [value]="option.value">{{option.name}}</option>
-          </select> -->
         </div>
-
-        <!-- 颜色选择盘 -->
-        <div class="form-item" *ngSwitchCase="'colorPicker'" fxLayout='row' fxLayoutAlign="space-between" [formGroupName]="control.id">
-          <label class="left-text">{{ control.name }}</label>
-          <div class="right-text" fxLayout="row">
-            <div class="color-item" *ngFor="let option of control.options" fxLayout="row wrap" fxLayoutAlign="start center">
-              <input class="cursor-hander" [formControlName]="option.id" [name]="option.id" [id]="option.id" [value]="option.value" type="color"
-                on-change="onRadioChange($event, control, form)">
-              <label for="option.id">{{ option.name }}</label>
-            </div>
+      <!-- 颜色选择盘 -->
+      <div class="form-item" *ngSwitchCase="'colorPicker'" [formGroupName]="model.id" fxLayout='row' fxLayoutAlign="space-between">
+        <label class="left-text">{{ model.name }}</label>
+        <div class="right-text" fxLayout="row">
+          <div class="color-item" *ngFor="let option of model.options" fxLayout="row wrap" fxLayoutAlign="start center">
+            <input [formControlName]="option.id" [name]="option.id" [id]="option.id" [value]="option.value" type="color"
+              on-change="onRadioChange($event, model, form)">
+            <label for="option.id">{{ option.name }}</label>
           </div>
         </div>
       </div>
+      <!-- 一组组件 -->
+      <div *ngSwitchCase="'group'">
+        <div [formGroupName]="model.id">
+          <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit:{models: model.child, form: form.controls[model.id], formGroupName: model.id}}">
+
+          </ng-container>
+        </div>
+      </div>
     </div>
-  </form>
-</div>
+  </div>
+</ng-template>
