@@ -44,7 +44,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onDropDown(flagId) {
-    if(this.dropDownFlagBoolen[flagId]) {
+    if (this.dropDownFlagBoolen[flagId]) {
       this.dropDownFlagBoolen[flagId] = !this.dropDownFlagBoolen[flagId];
     } else {
       this.dropDownFlagBoolen[flagId] = !!flagId;
@@ -140,9 +140,11 @@ class SingleSelectModel extends BasicModel {
     super(config);
     const options = [];
     for (const value of config.enum) {
+      const checked = (value === config.value);
       options.push({
         name: value,
-        value: value
+        value: value,
+        checked: checked
       });
     }
     this.options = options;
@@ -151,6 +153,7 @@ class SingleSelectModel extends BasicModel {
   options: Array<{
     name: string,
     value: string,
+    checked: boolean,
   }>;
   selectedOption: string;
 }

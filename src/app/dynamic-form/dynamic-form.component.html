@@ -12,7 +12,7 @@
       <!-- 输入框 -->
       <!-- [ngStyle]="model.style" -->
       <div class="form-item" *ngSwitchCase="'input'" fxLayout='row' fxLayoutAlign="space-between">
-        <label class="left-text">{{ model.name }}</label>
+        <label class="left-text">{{ model.name ? model.name : 'el' }}</label>
         <input class="right-text text-input" [formControlName]="model.id" [value]="model.value" [placeholder]="model.placeholder"
           type="text" on-change="onRadioChange($event, model, group.form)">
       </div>
@@ -78,9 +78,10 @@
       <!-- 一组组件 -->
       <div *ngSwitchCase="'group'">
         <div [formGroupName]="model.id">
-          <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit:{models: model.child, form: form.controls[model.id], formGroupName: model.id}}">
+            <label class="left-text">{{ model.name }}</label>
+            <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit:{models: model.child, form: group.form.controls[model.id], formGroupName: model.id}}">
 
-          </ng-container>
+            </ng-container>
         </div>
       </div>
     </div>

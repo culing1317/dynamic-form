@@ -63,57 +63,39 @@ export class AppComponent implements OnInit {
               });
             }
           },
-          // {
-          //   id: 'subData',
-          //   type: ControlType.group,
-          //   name: 'Sub Data',
-          //   child: [{
-          //     id: 'dataType',
-          //     type: ControlType.dropDown,
-          //     name: 'Data Types',
-          //     value: '',
-          //     enum: ['raw', 'product-line'],
-          //     handler$: (res: any) => {
-          //       return Observable.create(observer => {
-          //         const temp = res;
-          //         observer.next(temp);
-          //       });
-          //     }
-          //   }],
-          // }
+          {
+            id: 'dataPoints',
+            type: ControlType.checkbox,
+            name: 'Data Points',
+            value: '',
+            enum: [{ id: 'A1Current', name: 'A1Current', value: true },
+            { id: 'A2Current', name: 'A2Current', value: false },
+            { id: 'A3Current', name: 'A3Current', value: true },
+            { id: 'A4Current', name: 'A4Current', value: false },
+            { id: 'A5Current', name: 'A5Current', value: true },
+            { id: 'A6Current', name: 'A6Current', value: true },
+            { id: 'A7Current', name: 'A7Current', value: true },
+            { id: 'A8Current', name: 'A8Current', value: true }],
+            handler$: (res: any) => {
+              return Observable.create(observer => {
+                const temp = res;
+                observer.next(temp);
+              });
+            }
+          },
         ]
       },
 
-      {
-        id: 'dataPoints',
-        type: ControlType.checkbox,
-        name: 'Data Points',
-        value: '',
-        enum: [{id: 'A1Current', name: 'A1Current', value: true},
-               {id: 'A2Current', name: 'A2Current', value: false},
-               {id: 'A3Current', name: 'A3Current', value: true},
-               {id: 'A4Current', name: 'A4Current', value: false},
-               {id: 'A5Current', name: 'A5Current', value: true},
-               {id: 'A6Current', name: 'A6Current', value: true},
-               {id: 'A7Current', name: 'A7Current', value: true},
-               {id: 'A8Current', name: 'A8Current', value: true}],
-        handler$: (res: any) => {
-          return Observable.create(observer => {
-            const temp = res;
-            observer.next(temp);
-          });
-        }
-      },
       {
         id: 'PointsColor',
         type: ControlType.colorPicker,
         name: 'Points Color',
         value: '',
-        enum: [{id: 'A1Current', name: 'A1Current', value: '#333333'},
-               {id: 'A2Current', name: 'A2Current', value: '#0000ff'},
-               {id: 'A3Current', name: 'A3Current', value: '#ff00ff'},
-               {id: 'A4Current', name: 'A4Current', value: '#ff0000'},
-               {id: 'A5Current', name: 'A5Current', value: '#00ff00'}],
+        enum: [{ id: 'A1Current', name: 'A1Current', value: '#333333' },
+        { id: 'A2Current', name: 'A2Current', value: '#0000ff' },
+        { id: 'A3Current', name: 'A3Current', value: '#ff00ff' },
+        { id: 'A4Current', name: 'A4Current', value: '#ff0000' },
+        { id: 'A5Current', name: 'A5Current', value: '#00ff00' }],
         handler$: (res: any) => {
           return Observable.create(observer => {
             const temp = res;
@@ -134,6 +116,32 @@ export class AppComponent implements OnInit {
           });
         }
       },
+      {
+        id: 'setting',
+        type: ControlType.group,
+        name: 'Setting',
+        value: '',
+        child: [{
+          id: 'A1Current',
+          type: ControlType.group,
+          name: 'A1Current',
+          value: '',
+          child: [
+            {
+              id: 'Min',
+              type: ControlType.input,
+              name: 'Min',
+              value: '1',
+            },
+            {
+              id: 'Max',
+              type: ControlType.input,
+              name: 'Max',
+              value: '3',
+            }
+          ]
+        }],
+      }
     ];
   }
   log(message, b) {
