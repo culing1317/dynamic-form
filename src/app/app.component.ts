@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       },
       {
         id: 'dataGroup',
-        type: ControlType.group,
+        type: ControlType.normalGroup,
         name: 'data group',
         child: [
           {
@@ -118,12 +118,12 @@ export class AppComponent implements OnInit {
       },
       {
         id: 'setting',
-        type: ControlType.group,
+        type: ControlType.tableGroup,
         name: 'Setting',
         value: '',
         child: [{
           id: 'A1Current',
-          type: ControlType.group,
+          type: ControlType.tableGroup,
           name: 'A1Current',
           value: '',
           child: [

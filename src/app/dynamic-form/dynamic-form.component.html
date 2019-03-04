@@ -75,8 +75,8 @@
           </div>
         </div>
       </div>
-      <!-- 一组组件 -->
-      <div *ngSwitchCase="'group'">
+      <!-- 普通一组组件 -->
+      <div *ngSwitchCase="'normalGroup'">
         <div [formGroupName]="model.id">
             <label class="left-text">{{ model.name }}</label>
             <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit:{models: model.child, form: group.form.controls[model.id], formGroupName: model.id}}">
@@ -84,6 +84,15 @@
             </ng-container>
         </div>
       </div>
+      <!-- 配置一组组件 -->
+      <div *ngSwitchCase="'tableGroup'">
+          <div [formGroupName]="model.id">
+              <label class="left-text">{{ model.name }}</label>
+              <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit:{models: model.child, form: group.form.controls[model.id], formGroupName: model.id}}">
+
+              </ng-container>
+          </div>
+        </div>
     </div>
   </div>
 </ng-template>

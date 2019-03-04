@@ -97,7 +97,8 @@ export class DynamicFormComponent implements OnInit {
             models.push(model);
           }
           break;
-        case ControlType.group:
+        case ControlType.normalGroup:
+        case ControlType.tableGroup:
           {
             const subRes = this.createFormModel(formData.child);
             const model = new GroupModel(formData);
@@ -226,13 +227,14 @@ export enum Direction {
 }
 
 export enum ControlType {
-  group = 'group',
+  normalGroup = 'normalGroup',
+  tableGroup = 'tableGroup',
   input = 'input',
   radio = 'radio',
   dropDown = 'dropDown',
   checkbox = 'checkbox',
   colorPicker = 'colorPicker',
-  table = 'table'
+  table = 'table',
 }
 
 interface Result {
