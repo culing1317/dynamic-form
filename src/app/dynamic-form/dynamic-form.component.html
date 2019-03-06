@@ -39,14 +39,14 @@
         </div>
       </div>
       <!-- 下拉单选框 -->
-      <!-- <div *ngSwitchCase="'dropDown'">
+      <div class="form-item" *ngSwitchCase="'dropDown'" fxLayout='row' fxLayoutAlign="space-between">
         <label class="left-text">{{ model.name }}</label>
         <select class="right-text" [formControlName]="model.id" [value]="model.value" on-change="onRadioChange($event, model, form)">
           <option *ngFor="let option of model.options" [value]="option.value">{{option.name}}</option>
         </select>
-      </div> -->
+      </div>
       <!-- 下拉单选框(新) -->
-      <div class="form-item drop-down" *ngSwitchCase="'dropDown'"fxLayout='row' fxLayoutAlign="space-between" >
+      <!-- <div class="form-item drop-down" *ngSwitchCase="'dropDown'"fxLayout='row' fxLayoutAlign="space-between" >
           <label class="left-text">{{ model.name }}</label>
           <div class="right-text" on-click="onDropDown(model.id)">
             <div class="form-select">
@@ -58,12 +58,13 @@
               </div>
               <div class="select-dropdown" [ngClass]="{'show-drop-down': !(dropDownFlagBoolen[model.id])}">
                 <ul class="select-dropdown-list">
-                  <li class="select-item" [ngClass]="{}" *ngFor="let option of model.options">{{option.name}}</li>
+                  <li class="select-item" [ngClass]="{}" *ngFor="let option of model.options"
+                    on-click="onSlectItem(option, model, form)">{{option.name}}</li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       <!-- 颜色选择盘 -->
       <div class="form-item" *ngSwitchCase="'colorPicker'" [formGroupName]="model.id" fxLayout='row' fxLayoutAlign="space-between">
         <label class="left-text">{{ model.name }}</label>

@@ -43,13 +43,25 @@ export class DynamicFormComponent implements OnInit {
     console.log(this.form.value);
   }
 
-  onDropDown(flagId) {
+  /* onDropDown(flagId) {
     if (this.dropDownFlagBoolen[flagId]) {
       this.dropDownFlagBoolen[flagId] = !this.dropDownFlagBoolen[flagId];
     } else {
-      this.dropDownFlagBoolen[flagId] = !!flagId;
+      this.dropDownFlagBoolen[flagId] = !!(flagId);
     }
-  }
+  } */
+
+  /* onSlectItem(option, ctrModel, form) {
+    console.log(this.form);
+    option.checked = true;
+    if (!ctrModel.options) { return; }
+    let tempOpts = ctrModel.options.map((item) => {
+      item.checked = false;
+    });
+    console.log(this.model);
+    console.log(option);
+    console.log(form);
+  } */
 
   onRadioChange(event, controlModel, form) {
     controlModel.handler$(form.value).subscribe(
@@ -63,6 +75,7 @@ export class DynamicFormComponent implements OnInit {
     // return data.stringify;
     return JSON.stringify(data);
   }
+
   private createFormModel(formDataSet: ConfigFormData[]) {
     const map = {};
     const models = [];
