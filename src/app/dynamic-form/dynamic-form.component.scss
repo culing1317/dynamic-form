@@ -16,11 +16,26 @@ $text-fontsize: 16px;
   margin: var(--itmeMargin);
 }
 
+.increase-group .form-item{
+  margin-top: 0;
+  display: flex !important;
+  place-content: center start !important;
+}
+
 .left-text {
   color: $title-color;
   font-size: $title-fontsize;
   margin: var(--leftParmargin);
   width: var(--leftParMaxWid);
+}
+
+.increase-group .left-text{
+  margin-left: -15px;
+  margin-bottom: 20px;
+}
+
+.increase-group {
+  display: var(--increaseDisplay, initial);
 }
 
 .right-text {
