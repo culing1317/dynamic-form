@@ -70,8 +70,8 @@
       <!-- 颜色选择盘 -->
       <div class="form-item" *ngSwitchCase="'colorPicker'" [formGroupName]="model.id" fxLayout='row' fxLayoutAlign="space-between">
         <label class="left-text">{{ model.name }}</label>
-        <div class="right-text" fxLayout="row" ngxDroppable>
-          <div class="color-item" *ngFor="let option of model.options" fxLayout="row wrap" fxLayoutAlign="start center">
+        <div class="right-text" fxLayout="row" ngxDroppable [model] = "model.options">
+          <div class="color-item" ngxDraggable *ngFor="let option of model.options" [model]='option' fxLayout="row wrap" fxLayoutAlign="start center">
             <input [formControlName]="option.id" [name]="option.id" [id]="option.id" [value]="option.value" type="color"
               on-change="onRadioChange($event, model, form)">
             <label for="option.id">{{ option.name }}</label>
