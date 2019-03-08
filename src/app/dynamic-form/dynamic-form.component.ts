@@ -64,6 +64,7 @@ export class DynamicFormComponent implements OnInit {
   } */
 
   onRadioChange(event, controlModel, form) {
+    console.log('model', controlModel);
     controlModel.handler$(form.value).subscribe(
       (value) => {
         console.log(value);
