@@ -3,10 +3,11 @@ import { Observable } from 'rxjs';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { stringify } from '@angular/core/src/util';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.scss']
+  styleUrls: ['./dynamic-form.component.scss'],
 })
 export class DynamicFormComponent implements OnInit {
   form: FormGroup;
