@@ -10,6 +10,8 @@ import {
 import { DailogConfigComponent } from './dailog-config/dailog-config.component';
 import { Observable, of, from } from 'rxjs';
 import { DailogService } from './dailog.service';
+import { BaseStyle } from './styleConfig';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -155,26 +157,7 @@ export class AppComponent implements OnInit {
   log(message, b) {
     console.log(message, b);
   }
-  @HostBinding('style')
-  get style() {
-    /**
-     * itmeMargin： 每一行margin
-     * leftParmargin: 每一行lable部分margin
-     * leftParMaxWid： 每一行lable部分最大宽度
-     * rightParMaxWid： 每一行input部分最大宽度
-     * increaseDisplay: 子group中表单是否要在一行显示。
-     *                  flex: 一行显示;默认换行显示
-     */
-    return this.sanitizer.bypassSecurityTrustStyle(
-      `
-        --itmeMargin: 20px 50px 0 15px;
-        --leftParmargin: 10px 50px 0 150px;
-        --leftParMaxWid: 20%;
-        --rightParMaxWid: 75%;
-        --increaseDisplay: flex;
-      `
-    );
-  }
+
   open() {
     this.confirmService.open(this.formDataModel).subscribe((result) => {
 

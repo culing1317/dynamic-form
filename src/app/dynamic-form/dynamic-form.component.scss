@@ -15,6 +15,22 @@ $text-fontsize: 16px;
   margin: var(--itmeMargin);
 }
 
+.form-item select{
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid #dcdee2;
+}
+
+.form-item select:hover{
+  cursor: pointer;
+  border-color: #57a3f3;
+}
+
+.form-item select:focus{
+  outline: 0;
+  box-shadow: 0 0 0 2px rgba(45,140,240,.2);
+}
+
 .increase-group .form-item{
   margin-top: 0;
   display: flex !important;
@@ -187,4 +203,13 @@ $text-fontsize: 16px;
 
 .select-item:hover {
   background: #f3f3f3;
+}
+
+.submit{
+  margin: auto;
+  text-align: center;
+}
+input.ng-invalid {
+  border: 1px solid red;
+  // box-shadow: 0 0 0 2px rgba(240,45,45,.2);
 }

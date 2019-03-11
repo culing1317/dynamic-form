@@ -21,7 +21,7 @@
       <!-- 多选框 -->
       <div *ngSwitchCase="'checkbox'" class="form-item" [formGroupName]="model.id" fxLayout='row' fxLayoutAlign="space-between">
         <label class="left-text">{{ model.name }}</label>
-        <div class="right-text checkbox-right" fxLayout="row ">
+        <div class="right-text checkbox-right" fxLayout="row wrap" fxLayoutAlign="start">
           <div class="checkbox-item" *ngFor="let option of model.options" fxLayout="row wrap" fxLayoutAlign="start center">
             <input class="cursor-hander" [formControlName]="option.id" [name]="option.id" [id]="option.id" [checked]="option.value"
               type="checkbox" on-change="onRadioChange($event, model, form)">
