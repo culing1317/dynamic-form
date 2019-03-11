@@ -1,21 +1,29 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { OverlayService, OverlayRef } from './overlay-container/component.service';
 import {
   DynamicFormComponent,
   ConfigFormData,
   ControlType,
   Direction
 } from './dynamic-form/dynamic-form.component';
-import { Observable, of } from 'rxjs';
+import { DailogConfigComponent } from './dailog-config/dailog-config.component';
+import { Observable, of, from } from 'rxjs';
+import { DailogService } from './dailog.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  entryComponents: [DailogConfigComponent],
+  providers: [OverlayService, DailogService],
 })
 export class AppComponent implements OnInit {
   title = 'app';
   formDataModel: Array<ConfigFormData>;
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private overlayService: OverlayService,
+    private confirmService: DailogService) { }
 
   ngOnInit() {
     this.formDataModel = [
@@ -147,7 +155,6 @@ export class AppComponent implements OnInit {
   log(message, b) {
     console.log(message, b);
   }
-
   @HostBinding('style')
   get style() {
     /**
@@ -167,5 +174,12 @@ export class AppComponent implements OnInit {
         --increaseDisplay: flex;
       `
     );
+  }
+  open() {
+    this.confirmService.open(this.formDataModel).subscribe((result) => {
+
+        console.log('close dailog', result);
+
+    });
   }
 }

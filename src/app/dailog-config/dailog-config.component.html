@@ -1,0 +1,10 @@
+<div class="body">
+  <div class="header">
+  <div class="confirmButton" on-click="cancel$()">
+    取消
+  </div>
+  <app-dynamic-form #form [model]="formDataModel"></app-dynamic-form>
+  <div class="confirmButton" on-click="confirm$(form.form.value)">
+    确定
+  </div>
+</div>

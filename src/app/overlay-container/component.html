@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<div [@maskTrigger]="model.maskState" class="overlay-container" fxLayout="column" fxLayoutAlign="center center"
+  fxFlexFill>
+</div>
+
+<div [@overlayTrigger]="model.overlayState" #overlay class="overlay-content" fxLayout="column" fxLayoutAlign="center center"
+  fxFlexFill>
+  <ng-container *ngIf="config.type===config.typeOptions.template">
+    <div [create-template]="overlayModel"></div>
+  </ng-container>
+  <ng-container *ngIf="config.type===config.typeOptions.component">
+    <div [create-component]="overlayModel"></div>
+  </ng-container>
+</div>
