@@ -85,7 +85,7 @@ export class DynamicFormComponent implements OnInit {
       switch (formData.type) {
         case ControlType.input:
           {
-            map[formData.id] = new FormControl(formData.value);
+            map[formData.id] = new FormControl(formData.value, [Validators.required]);
             const model = new InputLabelModel(formData);
             models.push(model);
           }
@@ -93,7 +93,7 @@ export class DynamicFormComponent implements OnInit {
         case ControlType.radio:
         case ControlType.dropDown:
           {
-            map[formData.id] = new FormControl(formData.value);
+            map[formData.id] = new FormControl(formData.value, [Validators.required]);
             const model = new SingleSelectModel(formData);
             models.push(model);
           }

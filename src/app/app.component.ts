@@ -7,6 +7,7 @@ import {
   Direction
 } from './dynamic-form/dynamic-form.component';
 import { Observable, of } from 'rxjs';
+import { BaseStyle } from './styleConfig';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -150,21 +151,13 @@ export class AppComponent implements OnInit {
 
   @HostBinding('style')
   get style() {
-    /**
-     * itmeMargin： 每一行margin
-     * leftParmargin: 每一行lable部分margin
-     * leftParMaxWid： 每一行lable部分最大宽度
-     * rightParMaxWid： 每一行input部分最大宽度
-     * increaseDisplay: 子group中表单是否要在一行显示。
-     *                  flex: 一行显示;默认换行显示
-     */
     return this.sanitizer.bypassSecurityTrustStyle(
       `
-        --itmeMargin: 20px 50px 0 15px;
-        --leftParmargin: 10px 50px 0 150px;
-        --leftParMaxWid: 20%;
-        --rightParMaxWid: 75%;
-        --increaseDisplay: flex;
+        ${BaseStyle.ItmeMargin}: 20px 50px 0 15px;
+        ${BaseStyle.LeftParmargin}: 10px 50px 0 150px;
+        ${BaseStyle.LeftParMaxWid}: 20%;
+        ${BaseStyle.RightParMaxWid}: 75%;
+        ${BaseStyle.IncreaseDisplay}: flex;
       `
     );
   }
