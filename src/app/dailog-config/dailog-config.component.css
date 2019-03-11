@@ -1,0 +1,15 @@
+.body {
+  width: 50%;
+  height: 50%;
+}
+.confirmButton {
+  background-color: #4BB2C2;
+  text-align: center;
+  height: 30px;
+  width: 120px;
+  line-height: 30px;
+  color: #FFFFFF;
+  margin: 0 auto;
+  margin-top: 20px;
+  cursor: pointer;
+}

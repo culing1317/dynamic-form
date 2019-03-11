@@ -1,6 +1,6 @@
 
-
 <div *ngIf="form">
+<div class="form-body" *ngIf="form">
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit:{models: formModels, form: form}}">
     </ng-container>
